@@ -1,0 +1,13 @@
+# Blueprint opcional do Render (Static Site, sem build step).
+# Você pode criar o site pelo painel do Render ou usando este arquivo (Blueprint).
+services:
+  - type: web
+    name: portal-ofsimoes
+    runtime: static
+    buildCommand: ""        # sem build — HTML/CSS puro
+    staticPublishPath: .    # publica a raiz do repositório
+    # Cabeçalhos de cache leves para os assets
+    headers:
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=86400

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal ofsimoes.com.br</title>
+    <meta name="description" content="Portal de aplicativos de ofsimoes.com.br — acesso rápido a todos os apps." />
+    <meta name="theme-color" content="#0a1310" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:title" content="Portal ofsimoes.com.br" />
+    <meta property="og:description" content="Hub de acesso aos aplicativos de ofsimoes.com.br." />
+    <meta property="og:type" content="website" />
+
+    <!-- Tailwind CSS via CDN (sem build step) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome via CDN (ícones de interface) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Fonte Inter para um visual moderno -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Configuração do Tailwind (fonte custom)
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* ===== Fundo com gradiente suave + "blobs" decorativos ===== */
+      body {
+        background-color: #f8fafc;
+        background-image:
+          radial-gradient(60rem 60rem at 15% -10%, rgba(16, 185, 129, 0.10), transparent 60%),
+          radial-gradient(50rem 50rem at 100% 0%, rgba(37, 99, 235, 0.10), transparent 55%),
+          radial-gradient(45rem 45rem at 50% 120%, rgba(34, 201, 137, 0.08), transparent 60%);
+      }
+
+      /* ===== Card do aplicativo ===== */
+      .app-card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 1.25rem;
+        transition:
+          transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.28s ease,
+          border-color 0.28s ease;
+      }
+      .app-card:hover,
+      .app-card:focus-visible {
+        transform: translateY(-8px);
+        border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+        box-shadow:
+          0 18px 40px -12px color-mix(in srgb, var(--accent) 45%, transparent),
+          0 6px 14px -8px rgba(15, 23, 42, 0.18);
+        outline: none;
+      }
+
+      /* Barra de destaque no topo do card, na cor da marca */
+      .app-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 1.25rem;
+        right: 1.25rem;
+        height: 3px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2, var(--accent)));
+        opacity: 0;
+        transition: opacity 0.28s ease;
+      }
+      .app-card:hover::before,
+      .app-card:focus-visible::before {
+        opacity: 1;
+      }
+
+      /* Tile do logo */
+      .logo-tile {
+        transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .app-card:hover .logo-tile {
+        transform: scale(1.06) rotate(-2deg);
+      }
+
+      /* Seta do CTA */
+      .cta-arrow {
+        transition: transform 0.28s ease;
+      }
+      .app-card:hover .cta-arrow {
+        transform: translateX(4px);
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen font-sans text-slate-800 antialiased">
+    <div class="mx-auto flex min-h-screen max-w-5xl flex-col px-5 py-10 sm:px-8 sm:py-16">
+      <!-- ===================== CABEÇALHO ===================== -->
+      <header class="mb-12 text-center sm:mb-16">
+        <div
+          class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-lg shadow-slate-900/5 ring-1 ring-slate-900/5"
+        >
+          <img src="/favicon.svg" alt="Logo do Portal" class="h-11 w-11" />
+        </div>
+
+        <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+          Portal
+          <span class="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
+            ofsimoes.com.br
+          </span>
+        </h1>
+        <p class="mx-auto mt-3 max-w-md text-base text-slate-500">
+          Acesso rápido a todos os meus aplicativos. Escolha um app abaixo para começar.
+        </p>
+
+        <div
+          class="mt-5 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-4 py-1.5 text-sm font-medium text-slate-600"
+        >
+          <i class="fa-solid fa-globe text-emerald-500"></i>
+          ofsimoes.com.br
+        </div>
+      </header>
+
+      <!-- ===================== GRID DE APLICATIVOS ===================== -->
+      <!--
+        Para adicionar / editar um app, copie um bloco <a class="app-card"> abaixo.
+        Altere o href (subdomínio), o logo, o título e a descrição.
+        As cores de destaque vêm das variáveis --accent e --accent-2 no style de cada card.
+      -->
+      <main class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- ---------- App 1: economIA ---------- -->
+        <a
+          href="https://economia.ofsimoes.com.br"
+          class="app-card group flex flex-col p-6"
+          style="--accent: #10b981; --accent-2: #22c989"
+        >
+          <div class="logo-tile mb-5 h-16 w-16 overflow-hidden rounded-2xl shadow-md shadow-emerald-900/10">
+            <img src="/assets/economia.svg" alt="Logo do economIA" class="h-full w-full" />
+          </div>
+          <h2 class="text-lg font-bold text-slate-900">economIA</h2>
+          <p class="mt-1.5 flex-1 text-sm leading-relaxed text-slate-500">
+            Gestão financeira inteligente para organizar receitas, despesas e investimentos.
+          </p>
+          <div class="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
+            <span class="text-xs font-medium text-slate-400">economia.ofsimoes.com.br</span>
+            <span
+              class="cta-arrow inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-600"
+            >
+              Abrir <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+
+        <!-- ---------- App 2: EV/HEV Economy ---------- -->
+        <a
+          href="https://eveconomy.ofsimoes.com.br"
+          class="app-card group flex flex-col p-6"
+          style="--accent: #2563eb; --accent-2: #10b981"
+        >
+          <div
+            class="logo-tile mb-5 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-md shadow-blue-900/10 ring-1 ring-slate-100"
+          >
+            <img src="/assets/eveconomy.webp" alt="Logo do EV/HEV Economy" class="h-full w-full object-contain" />
+          </div>
+          <h2 class="text-lg font-bold text-slate-900">EV/HEV Economy</h2>
+          <p class="mt-1.5 flex-1 text-sm leading-relaxed text-slate-500">
+            Monitoramento de consumo e economia de veículos elétricos e híbridos.
+          </p>
+          <div class="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
+            <span class="text-xs font-medium text-slate-400">eveconomy.ofsimoes.com.br</span>
+            <span
+              class="cta-arrow inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600"
+            >
+              Abrir <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+
+        <!-- ---------- App 3: Lab Exams ---------- -->
+        <a
+          href="https://labexams.ofsimoes.com.br"
+          class="app-card group flex flex-col p-6"
+          style="--accent: #2563eb; --accent-2: #1d4ed8"
+        >
+          <div class="logo-tile mb-5 h-16 w-16 overflow-hidden rounded-2xl shadow-md shadow-blue-900/10">
+            <img src="/assets/labexams.svg" alt="Logo do Lab Exams" class="h-full w-full" />
+          </div>
+          <h2 class="text-lg font-bold text-slate-900">Lab Exams</h2>
+          <p class="mt-1.5 flex-1 text-sm leading-relaxed text-slate-500">
+            Rastreamento e histórico de exames laboratoriais e biomarcadores de saúde.
+          </p>
+          <div class="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
+            <span class="text-xs font-medium text-slate-400">labexams.ofsimoes.com.br</span>
+            <span
+              class="cta-arrow inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600"
+            >
+              Abrir <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+      </main>
+
+      <!-- ===================== RODAPÉ ===================== -->
+      <footer class="mt-16 border-t border-slate-200/70 pt-6 text-center">
+        <p class="text-sm text-slate-400">
+          &copy; <span id="year">2026</span> ofsimoes.com.br &middot; Hospedado no
+          <i class="fa-solid fa-server mx-0.5 text-slate-300"></i> Render
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // Atualiza o ano automaticamente
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
